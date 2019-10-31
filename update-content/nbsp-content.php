@@ -6,8 +6,8 @@ if(php_sapi_name() !== 'cli') {
 
 $_SERVER = [
     "SERVER_PROTOCOL" => "HTTP/1.1",
-    "HTTP_HOST"       => "knife.plus",
-    "SERVER_NAME"     => "knife.plus",
+    "HTTP_HOST"       => "knife.media",
+    "SERVER_NAME"     => "knife.media",
     "REQUEST_URI"     => "/",
     "REQUEST_METHOD"  => "GET"
 ];
@@ -32,7 +32,7 @@ require( __DIR__ . '/../../wordpress/wp-load.php');
             $updated = esc_sql($updated);
 
             $wpdb->query("UPDATE {$wpdb->posts} SET post_content = '{$updated}' WHERE ID = " . absint($post->id));
-            echo 'https://knife.plus/?p=' . $post->id . "\n";
+            echo 'https://knife.media/?p=' . $post->id . "\n";
         }
     }
 }
