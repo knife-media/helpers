@@ -31,6 +31,6 @@ require( __DIR__ . '/../../wordpress/wp-load.php');
         $content = esc_sql($content);
 
         $wpdb->query("UPDATE {$wpdb->posts} SET post_content = '{$content}' WHERE ID = " . absint($post->id));
-        echo 'https://knife.media/?p=' . $post->id . "\n";
+        echo WP_SITEURL .  "/?p={$post->id}\n";
     }
 }
