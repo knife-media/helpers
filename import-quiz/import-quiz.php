@@ -31,7 +31,7 @@ function get_attachment_id_by_url( $url ) {
         }
 
         if ( preg_match( '/^(.*)(\-\d*x\d*)(\.\w{1,})/i', $path, $matches ) ){
-            $url = $dir['baseurl'] . '/' . $matches[1] . $matches[3];
+            $url = $matches[1] . $matches[3];
             $post_id = attachment_url_to_postid( $url );
         }
     }
@@ -201,7 +201,7 @@ function get_attachment_id_by_url( $url ) {
     $results = $wpdb->get_row("SELECT `text`, `result_text` FROM wp_wp_pro_quiz_master WHERE id = '{$quiz_id}'");
 
     if(!empty($results->text)) {
-        $add_lead = update_post_meta($new_post_id, 'lead-text', $results->text, true);
+        $add_lead = update_post_meta($new_post_id, '_knife-lead', $results->text, true);
 
         if(!$add_lead) {
             "Lead not added: $new_post_id\n";
