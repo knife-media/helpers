@@ -18,7 +18,7 @@ define('WP_USE_THEMES', false);
 require( __DIR__ . '/../../wordpress/wp-load.php');
 
 
-$quiz_id = 2;
+$quiz_id = 13;
 
 function get_attachment_id_by_url( $url ) {
     $post_id = attachment_url_to_postid( $url );
@@ -193,7 +193,7 @@ function get_attachment_id_by_url( $url ) {
         $scores = $scores + $max_score;
 
         if(!add_post_meta($new_post_id, '_knife-quiz-items', $new_question)) {
-            "Question not added\n";
+            echo "Question not added\n";
         }
     }
 
@@ -203,8 +203,8 @@ function get_attachment_id_by_url( $url ) {
     if(!empty($results->text)) {
         $add_lead = update_post_meta($new_post_id, '_knife-lead', $results->text, true);
 
-        if(!$add_lead) {
-            "Lead not added: $new_post_id\n";
+        if($add_lead === false) {
+            echo "Lead not added: $new_post_id\n";
         }
     }
 
@@ -261,11 +261,11 @@ function get_attachment_id_by_url( $url ) {
         }
 
         if(!add_post_meta($new_post_id, '_knife-quiz-results', $result)) {
-            "Result not added: {$result['from']}\n";
+            echo "Result not added: {$result['from']}\n";
         }
     }
 
     if(!add_post_meta($new_post_id, '_knife-quiz-options', $options, true)) {
-        "Options not added\n";
+        echo "Options not added\n";
     }
 }
