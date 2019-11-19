@@ -18,7 +18,7 @@ define('WP_USE_THEMES', false);
 require( __DIR__ . '/../../wordpress/wp-load.php');
 
 
-$quiz_id = 13;
+$quiz_id = 18;
 
 function get_attachment_id_by_url( $url ) {
     $post_id = attachment_url_to_postid( $url );
@@ -160,7 +160,7 @@ function get_attachment_id_by_url( $url ) {
                     }
                 }
 
-                if($correct->getValue($a) || $points->getValue($a)) {
+                if($correct->getValue($a)) {
                     $new_answer['binary'] = 1;
                 }
             } else {
@@ -199,6 +199,8 @@ function get_attachment_id_by_url( $url ) {
 
 
     $results = $wpdb->get_row("SELECT `text`, `result_text` FROM wp_wp_pro_quiz_master WHERE id = '{$quiz_id}'");
+
+    delete_post_meta($new_post_id, '_knife-lead');
 
     if(!empty($results->text)) {
         $add_lead = update_post_meta($new_post_id, '_knife-lead', $results->text, true);
