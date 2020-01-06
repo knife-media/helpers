@@ -16,7 +16,7 @@ define('WP_CACHE', false);
 define('WP_DEBUG', true);
 define('WP_USE_THEMES', false);
 
-require_once(__DIR__ . '/../../wordpress/wp-load.php');
+require_once(__DIR__ . '/../wordpress/wp-load.php');
 
 $query = new WP_Query([
     'post_type' => ['post', 'story', 'club', 'select'],

@@ -15,7 +15,7 @@ define('WP_CACHE', false);
 define('WP_DEBUG', true);
 define('WP_USE_THEMES', false);
 
-require( __DIR__ . '/../../wordpress/wp-load.php');
+require( __DIR__ . '/../wordpress/wp-load.php');
 
 
 $quiz_id = 18;
