@@ -22,38 +22,12 @@ require( __DIR__ . '/../wordpress/wp-load.php');
 {
     global $wpdb;
 
-    $adult_words = ['Пидор', 'Педераст', 'Гей', 'Гомосексуал', 'Гомосексуализм', 'Гомосексуалист', 'Гомосексуальность', 'Квир', 'Queer', 'ЛГБТ', 'ЛГБТК', 'Шлюх', 'Слат', 'Slut', 'Транслюди', 'Транссексуал', 'Трансмужчин', 'Трансженщин', 'Психоделик', 'Психоактивный', 'ЛСД', 'Лизергинов', 'Ибогаин', 'Галлюциноген', 'Псилоцибин', 'Гриб', 'Прекурсор', 'Наркосодержащ', 'Наркотическ', 'Опиат', 'Опиоид', 'Героин', 'Кокаин', 'Мефедрон', 'Марихуан', 'Травк', 'Каннабис', 'Кетамин', 'Хуй', 'Ебать', 'Пизд', 'Блядь'];
+    $ids = '18494, 16842, 29970, 33664, 39754, 44196, 58345, 13800, 33264, 63444, 70183, 71022, 85636, 5178, 21919, 24628, 24863, 26410, 31372, 41928, 54855, 75164, 80967, 930, 14196, 16066, 18159, 18478, 86319, 91259, 1930, 2515, 3088, 31736, 54450, 72182, 77345, 9000, 13282, 15121, 25488, 4341, 13398, 25435, 39402, 69677, 4919, 20899, 44291, 42042, 29021, 45668, 89601, 87045, 76169, 57651, 61381, 62631, 69431, 62163, 89979, 36681, 57170, 29939, 3624, 16973, 53615, 56748, 56932, 82331, 92435, 85530, 21528, 43162, 5866, 91837, 39968, 41586, 36714, 86698, 34467';
+    $ids = explode(", ", $ids);
 
-    $common = [];
-
-    file_put_contents(__DIR__ . "/adult.html", '<meta charset="utf-8">');
-
-    foreach($adult_words as $word) {
-        $word = ' ' . strtolower(trim($word));
-        $posts = $wpdb->get_results("SELECT id from wp_posts WHERE post_status = 'publish' AND (post_content LIKE '%{$word}%' OR post_title LIKE '%{$word}%')");
-
-        $data = "<h3>{$word}</h3>";
-
-        foreach($posts as $post) {
-            if(in_array($post, $common)) {
-                continue;
-            }
-
-            if(in_category('news', $post->id)) {
-                continue;
-            }
-
-            $data = $data . sprintf('<a href="%2$s" target="_blank">%1$s</a>',
-                get_the_title($post->id),
-                get_permalink($post->id)
-            );
-
-            $data = $data . "<br>";
-
-            $common[] = $post;
+    foreach($ids as $id) {
+        if(!update_post_meta($id, '_knife-adult-content', 1)) {
+            echo $id . ', ';
         }
-
-
-        file_put_contents(__DIR__ . "/adult.html", $data, FILE_APPEND);
     }
 }
