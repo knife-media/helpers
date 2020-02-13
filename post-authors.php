@@ -26,8 +26,7 @@ require( __DIR__ . '/../wordpress/wp-load.php');
 
     $posts = get_posts([
         'posts_per_page' => -1,
-        'post_type' => 'any',
-        'fields' => ['ids', 'post_author']
+        'post_type' => 'any'
     ]);
 
     foreach($posts as $post) {
