@@ -29,13 +29,13 @@ require( __DIR__ . '/../wordpress/wp-load.php');
     $data = [];
 
     foreach ($xids as $xid) {
-        $uid = str_replace('https://knife.media', 'https://knife.plus', $xid);
+        $uid = $xid;
 
         // Get pist id
         $post_id = url_to_postid($uid);
 
         if (empty($post_id)) {
-            $uid = str_replace('https://knife.plus', 'https://knife.plus/quiz', $uid);
+            $uid = str_replace('https://knife.media', 'https://knife.media/quiz', $uid);
 
             // Let's do it once again
             $post_id = url_to_postid($uid);

@@ -1,1 +1,1 @@
-### Small snippets for knife.media content upgrading
+### Small snippets for knife.media content upgrade
