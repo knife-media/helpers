@@ -48,6 +48,7 @@ function median($arr) {
                 'year' => '2020'
             ],
         ],
+        'category_name' => 'longreads',
         'fields' => 'ids'
     ]);
 
@@ -91,6 +92,6 @@ function median($arr) {
     foreach($views as $tag => $pv) {
         $ctr = round($pv / array_sum($views) * 100, 7);
 
-        echo "$tag,$pv,$ctr\n";
+        echo "$tag\t$pv\t$ctr\n";
     }
 }
