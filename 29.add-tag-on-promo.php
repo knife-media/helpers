@@ -66,9 +66,15 @@ require( __DIR__ . '/../wordpress/wp-load.php');
             continue;
         }
 
-        $result = wp_add_post_tags($post, $arr[1]);
+        $term = get_term_by('name', $arr[1], 'post_tag');
 
-        if (is_wp_error($result) || $result === false) {
+        if (empty($term->term_id)) {
+            continue;
+        }
+
+        $result = wp_remove_object_terms($post, $term->term_id, 'post_tag');
+
+        if ($result) {
             echo "$post, ";
         }
     }
