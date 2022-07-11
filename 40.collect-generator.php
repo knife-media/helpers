@@ -56,7 +56,6 @@ require(__DIR__ . '/../wordpress/wp-load.php');
         echo $name . "\n";
 
         foreach ($items as $i => $item) {
-            break;
             if (empty($item['poster'])) {
                 $data = [
                     'id' => $i + 1,
@@ -78,7 +77,7 @@ require(__DIR__ . '/../wordpress/wp-load.php');
             $data = [
                 'id' => $i + 1,
                 'poster' => 'https://knife.media/frame/generator/data/posters/' . $poster,
-                'text' => $item['description']
+                'text' => wpautop($item['description'])
             ];
 
             $result['results'][] = $data;
