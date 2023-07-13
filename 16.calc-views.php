@@ -19,7 +19,7 @@ define('WP_USE_THEMES', false);
 require( __DIR__ . '/../wordpress/wp-load.php');
 
 
-if(!defined('KNIFE_VIEWS')) {
+if(!defined('KNIFE_ANALYTICS')) {
     exit('Undefined db settings');
 }
 
@@ -45,14 +45,15 @@ function median($arr) {
         'order' => 'desc',
         'date_query' => [
             [
-                'year' => '2019'
+                'month' => '4',
+                'year' => '2023'
             ],
         ],
         'fields' => 'ids'
     ]);
 
     // Mix with default values
-    $conf = KNIFE_VIEWS;
+    $conf = KNIFE_ANALYTICS;
 
     // Create custom db connection
     $db = new wpdb($conf['user'], $conf['password'], $conf['name'], $conf['host']);
@@ -60,7 +61,7 @@ function median($arr) {
     $ids = implode(',', $posts);
 
     // Get data
-    $data = $db->get_results("SELECT * FROM posts WHERE post_id IN ({$ids}) ORDER BY pageviews DESC");
+    $data = $db->get_results("SELECT * FROM views WHERE post_id IN ({$ids}) ORDER BY pageviews DESC");
 
     // Slice data
 #   $data = array_slice($data, 100, -500);
@@ -79,7 +80,7 @@ function median($arr) {
         $group = get_post_type($post_id);
 
         // Get category
-        $author = get_post_meta($post_id, '_knife-authors', true);
+        $author = Knife_Authors_Manager::get_post_authors($post_id)[0];
 
         if(empty($author)) {
             continue;
@@ -103,6 +104,7 @@ function median($arr) {
         $mid = round(array_sum($views[$g]) / count($views[$g]), 2);
         $med = median($views[$g]);
 
-        echo "$g: $mid / $med \n";
+        //echo "$g: $mid / $med \n";
+        echo $g . " - сумма просмотров: " . array_sum($views[$g]) . ', количество статей: ' . count($views[$g]) . "\n";
     }
 }
