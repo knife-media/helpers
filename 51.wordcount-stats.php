@@ -42,6 +42,12 @@ function find_posts() {
             continue;
         }
 
+        $editor = get_post_meta( $post, Knife_Authors_Manager::$meta_editor, true );
+
+        if ($editor !== 'seroe-fioletovoe') {
+            continue;
+        }
+
         $content = wp_strip_all_tags(get_the_content(null, false, $post));
 
         $create = get_the_date('Y-m', $post);
